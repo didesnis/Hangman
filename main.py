@@ -30,6 +30,7 @@ while not end_game:
         if lives == 0:
             end_game = True
             print('You lose!')
+            print(f'Word was {chosen_word}')
     print(f"{blanks}")
     if '_' not in blanks:
         end_game = True
