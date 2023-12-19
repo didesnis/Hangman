@@ -6,6 +6,7 @@ from words import word_list
 print(logo)
 
 blanks = []
+player_guesses = []
 end_game = False
 lives = 6
 
@@ -20,21 +21,30 @@ print(blanks)
 while not end_game:
     player_guess = input('Guess a letter\n').lower()
 
-    for position in range(word_length):
-        letter = chosen_word[position]
+    if player_guess in player_guesses:
+        print('You have already guessed this letter')
+    else:
+        player_guesses.append(player_guess)
 
-        if letter == player_guess:
-            blanks[position] = letter
-    if player_guess not in blanks:
-        lives -= 1
-        if lives == 0:
-            end_game = True
-            print('You lose!')
-            print(f'Word was {chosen_word}')
-    print(f"{blanks}")
+        for position in range(word_length):
+            letter = chosen_word[position]
+
+            if letter == player_guess:
+                blanks[position] = letter
+
+        if player_guess not in chosen_word:
+            lives -= 1
+            if lives == 0:
+                end_game = True
+                print('You lose!')
+                print(f'Word was {chosen_word}')
+
+    print(f"Guessed letters: {', '.join(player_guesses)}")
+    print(f"{' '.join(blanks)}")
+
     if '_' not in blanks:
         end_game = True
         print('You Win')
-    print(stages[lives])
 
+    print(stages[lives])
 
